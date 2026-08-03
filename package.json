@@ -1,0 +1,38 @@
+{
+  "name": "micompress-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that lets AI agents compress images, PDFs, video, audio, documents & archives — powered by micompress.com",
+  "keywords": [
+    "mcp", "model-context-protocol", "claude", "compress", "compression",
+    "image", "pdf", "video", "audio", "optimize", "micompress"
+  ],
+  "homepage": "https://micompress.com",
+  "bugs": {
+    "url": "https://github.com/micompress/micompress-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micompress/micompress-mcp.git"
+  },
+  "license": "MIT",
+  "author": "MiCompress (https://micompress.com)",
+  "type": "commonjs",
+  "bin": {
+    "micompress-mcp": "src/server.js"
+  },
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node test/protocol.test.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^3.23.8"
+  }
+}

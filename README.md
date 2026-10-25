@@ -30,6 +30,35 @@ Add to your MCP config (`claude_desktop_config.json` on Desktop):
 }
 ```
 
+## API key (optional)
+
+Without a key the server works anonymously, within per-type size limits. For bigger
+files, sign in (free) at **https://micompress.com/account**, copy your personal key
+(`mc_…`) and pass it as the `MICOMPRESS_API_KEY` environment variable. The key stays in
+the server's environment — it is never sent to the model.
+
+```bash
+claude mcp add micompress -e MICOMPRESS_API_KEY=mc_yourkey -- npx -y micompress-mcp
+```
+
+```json
+{
+  "mcpServers": {
+    "micompress": {
+      "command": "npx",
+      "args": ["-y", "micompress-mcp"],
+      "env": { "MICOMPRESS_API_KEY": "mc_yourkey" }
+    }
+  }
+}
+```
+
+With a key, files up to **100 MB** are accepted. A free account includes **50
+compressions/month** through the API; Plus ($9.99/mo) includes 1,000/month and Pro
+($19.99/mo) 5,000/month, shared with website usage. When the allowance runs out the tool
+returns `API_QUOTA_REACHED` (free) or `USAGE_LIMIT_REACHED` (paid) — see
+**https://micompress.com/plans**.
+
 ## Tools
 
 ### `compress_file`
@@ -67,7 +96,7 @@ Full list: **https://micompress.com/all-tools**
 Files are uploaded over HTTPS to [micompress.com](https://micompress.com) and compressed
 with the same engine the website uses (mozjpeg, pngquant, gifski, Ghostscript, ffmpeg, …),
 then written back to disk. Anonymous use works within per-type size limits
-(images 20MB, video 50MB, …).
+(images 20MB, video 50MB, …); set `MICOMPRESS_API_KEY` for files up to 100MB.
 
 **Point it at files you're comfortable sending to a third-party service.** The agent
 passes a path; the file's contents leave your machine.

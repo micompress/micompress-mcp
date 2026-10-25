@@ -22,6 +22,9 @@ const { EXT_CATEGORY, categoryFor, extOf } = require('./categories');
 const pkg = require('../package.json');
 
 const PRESETS = ['lossless', 'recommended', 'extreme'];
+// Optional personal key (micompress.com/account) for bigger files and a monthly
+// allowance. Read from the environment so it never passes through the model.
+const API_KEY = process.env.MICOMPRESS_API_KEY || null;
 
 function humanSize(n) {
   if (n == null) return '?';
@@ -79,7 +82,7 @@ server.registerTool(
 
     let result;
     try {
-      result = await compressFile(inputPath, { preset, maxWidth });
+      result = await compressFile(inputPath, { preset, maxWidth, apiKey: API_KEY });
     } catch (err) {
       const msg = err instanceof CompressError ? err.message : (err && err.message) || String(err);
       return toolError(`Compression failed: ${msg}`);
@@ -148,7 +151,8 @@ server.registerTool(
 async function main() {
   await server.connect(new StdioServerTransport());
   // stdout is the MCP transport — anything written there corrupts the protocol.
-  process.stderr.write(`micompress-mcp ${pkg.version} ready (API: ${DEFAULT_BASE})\n`);
+  process.stderr.write(`micompress-mcp ${pkg.version} ready (API: ${DEFAULT_BASE}, ` +
+    `${API_KEY ? 'API key set' : 'anonymous'})\n`);
 }
 
 main().catch((err) => {

@@ -1,10 +1,20 @@
 {
   "name": "micompress-mcp",
-  "version": "0.1.0",
+  "version": "0.1.2",
+  "mcpName": "com.micompress/mcp",
   "description": "MCP server that lets AI agents compress images, PDFs, video, audio, documents & archives — powered by micompress.com",
   "keywords": [
-    "mcp", "model-context-protocol", "claude", "compress", "compression",
-    "image", "pdf", "video", "audio", "optimize", "micompress"
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "compress",
+    "compression",
+    "image",
+    "pdf",
+    "video",
+    "audio",
+    "optimize",
+    "micompress"
   ],
   "homepage": "https://micompress.com",
   "bugs": {

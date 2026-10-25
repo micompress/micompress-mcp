@@ -8,9 +8,10 @@ const DEFAULT_BASE = 'https://micompress.com';
 // Attribution so we can measure traffic driven by the CLI (see extend/README.md).
 const UTM = 'utm_source=mcp&utm_medium=agent&utm_campaign=extend';
 // Branded UA identifies the client and stays clear of WAF bot rules.
-const USER_AGENT = 'micompress-mcp/0.1.0 (+https://micompress.com)';
+const VERSION = require('../package.json').version;
+const USER_AGENT = `micompress-mcp/${VERSION} (+https://micompress.com)`;
 // Channel id so the server can attribute AI-agent usage to the MCP server.
-const CLIENT_ID = 'mcp/0.1.0';
+const CLIENT_ID = `mcp/${VERSION}`;
 
 class CompressError extends Error {
   constructor(message, code) {
@@ -28,7 +29,8 @@ class CompressError extends Error {
  * @param {string} [opts.baseUrl]   API base (default https://micompress.com)
  * @param {string} [opts.preset]    lossless | recommended | extreme
  * @param {number} [opts.maxWidth]  image resize cap (px)
- * @param {string} [opts.token]     JWT access token for higher limits
+ * @param {string} [opts.apiKey]    personal API key (mc_…) from micompress.com/account
+ * @param {string} [opts.token]     legacy JWT login token for higher limits
  * @param {number} [opts.timeout]   ms (default 120000)
  * @returns {Promise<{buffer:Buffer, meta:object}>}
  */
@@ -62,6 +64,8 @@ async function compressFile(inputPath, opts = {}) {
 
   const headers = { Accept: 'application/json', 'User-Agent': USER_AGENT,
     'X-MiCompress-Client': CLIENT_ID };
+  // The API key authenticates the compress POST only (not the download GET).
+  if (opts.apiKey) headers['X-API-Key'] = String(opts.apiKey).trim();
   if (opts.token) headers.Authorization = `Bearer ${opts.token}`;
 
   const ac = new AbortController();
@@ -87,9 +91,22 @@ async function compressFile(inputPath, opts = {}) {
   if (!res.ok || !json.success) {
     if (res.status === 401 && json.code === 'LOGIN_REQUIRED') {
       throw new CompressError(
-        `File exceeds the anonymous size limit. Pass --token <jwt> (log in at ${baseUrl}) ` +
-        `or compress it online at ${baseUrl}/?${UTM}`,
+        `File exceeds the anonymous size limit. Set MICOMPRESS_API_KEY in the MCP server ` +
+        `config (get a free key at ${baseUrl}/account) or compress it online at ${baseUrl}/?${UTM}`,
         'LOGIN_REQUIRED',
+      );
+    }
+    if (res.status === 401 && json.code === 'INVALID_API_KEY') {
+      // The server's message already says where to find the key; ours is a fallback.
+      throw new CompressError(
+        json.error || `Invalid API key — check MICOMPRESS_API_KEY against ${baseUrl}/account`,
+        'INVALID_API_KEY',
+      );
+    }
+    if (res.status === 429 && (json.code === 'API_QUOTA_REACHED' || json.code === 'USAGE_LIMIT_REACHED')) {
+      throw new CompressError(
+        `${json.error || 'Monthly quota reached'} — see plans at ${baseUrl}/plans`,
+        json.code,
       );
     }
     throw new CompressError(json.error || `HTTP ${res.status}`, json.code || 'API_ERROR');

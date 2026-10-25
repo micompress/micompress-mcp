@@ -1,0 +1,46 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.micompress/mcp",
+  "description": "Compress images, PDFs, video, audio, documents & archives via micompress.com",
+  "repository": {
+    "url": "https://github.com/micompress/micompress-mcp",
+    "source": "github"
+  },
+  "version": "0.1.2",
+  "packages": [
+    {
+      "registryType": "oci",
+      "identifier": "docker.io/huuhuybn/micompress-mcp:0.1.2",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "docker",
+      "runtimeArguments": [
+        {
+          "type": "named",
+          "name": "-v",
+          "value": "{host_dir}:/data",
+          "description": "Mount the folder whose files the agent should compress; paths are relative to /data.",
+          "variables": {
+            "host_dir": {
+              "description": "Absolute path of the folder on your machine",
+              "isRequired": true,
+              "format": "filepath"
+            }
+          }
+        }
+      ],
+      "environmentVariables": [
+        {
+          "name": "MICOMPRESS_API_KEY",
+          "description": "Optional personal API key from https://micompress.com/account (bigger files, monthly allowance).",
+          "isRequired": false,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    }
+  ],
+  "title": "MiCompress",
+  "websiteUrl": "https://micompress.com"
+}

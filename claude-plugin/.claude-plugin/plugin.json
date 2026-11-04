@@ -1,0 +1,15 @@
+{
+  "name": "micompress",
+  "displayName": "MiCompress",
+  "version": "0.1.0",
+  "description": "Compress images, PDFs, video, audio, Office documents and archives — files on your computer or from a link.",
+  "author": {
+    "name": "MiCompress",
+    "email": "support@micompress.com",
+    "url": "https://micompress.com"
+  },
+  "homepage": "https://micompress.com/mcp-server",
+  "repository": "https://github.com/micompress/micompress-mcp",
+  "license": "MIT",
+  "keywords": ["compression", "image", "pdf", "video", "audio", "optimize"]
+}

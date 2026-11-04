@@ -3,3 +3,7 @@ node_modules/
 package-lock.json
 .mcp.json
 glama.json
+claude-plugin/
+.claude-plugin/
+gemini-extension.json
+GEMINI.md

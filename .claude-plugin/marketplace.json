@@ -1,0 +1,14 @@
+{
+  "name": "micompress",
+  "owner": {
+    "name": "MiCompress",
+    "email": "support@micompress.com"
+  },
+  "plugins": [
+    {
+      "name": "micompress",
+      "source": "./claude-plugin",
+      "description": "Compress images, PDFs, video, audio, Office documents and archives — files on your computer or from a link."
+    }
+  ]
+}

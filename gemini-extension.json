@@ -1,0 +1,12 @@
+{
+  "name": "micompress",
+  "version": "0.1.3",
+  "description": "Compress images, PDFs, video, audio, Office documents and archives from the Gemini CLI via micompress.com.",
+  "mcpServers": {
+    "micompress": {
+      "command": "npx",
+      "args": ["-y", "micompress-mcp@0.1.0"]
+    }
+  },
+  "contextFileName": "GEMINI.md"
+}

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "micompress-local": {
+      "command": "npx",
+      "args": ["-y", "micompress-mcp@0.1.0"]
+    },
+    "micompress": {
+      "type": "http",
+      "url": "https://micompress.com/mcp"
+    }
+  }
+}

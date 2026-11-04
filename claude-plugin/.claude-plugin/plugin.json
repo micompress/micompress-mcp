@@ -11,5 +11,13 @@
   "homepage": "https://micompress.com/mcp-server",
   "repository": "https://github.com/micompress/micompress-mcp",
   "license": "MIT",
-  "keywords": ["compression", "image", "pdf", "video", "audio", "optimize"]
+  "keywords": [
+    "compression",
+    "image",
+    "pdf",
+    "video",
+    "audio",
+    "optimize"
+  ],
+  "privacyPolicyUrl": "https://micompress.com/privacy#mcp"
 }

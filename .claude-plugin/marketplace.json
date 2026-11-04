@@ -4,6 +4,9 @@
     "name": "MiCompress",
     "email": "support@micompress.com"
   },
+  "metadata": {
+    "description": "MiCompress plugins for Claude: compress images, PDFs, video, audio, Office documents and archives."
+  },
   "plugins": [
     {
       "name": "micompress",

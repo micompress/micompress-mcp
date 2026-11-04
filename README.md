@@ -7,7 +7,20 @@ Ask your assistant *"compress the screenshots in ./assets"* and it will — no m
 upload, no separate tool. Works with any [Model Context Protocol](https://modelcontextprotocol.io)
 client: Claude Desktop, Claude Code, Cursor, and others.
 
-## Setup
+## Hosted server (no install)
+
+MiCompress also runs as a remote MCP server at **`https://micompress.com/mcp`**
+(Streamable HTTP, no sign-in). It compresses files **by URL** and returns a download
+link, so it suits Claude.ai, ChatGPT and other clients that cannot run local
+commands. Docs: [micompress.com/mcp-server](https://micompress.com/mcp-server).
+
+```bash
+claude mcp add --transport http micompress https://micompress.com/mcp
+```
+
+For files on your own disk, use the local server below.
+
+## Setup (local server)
 
 ### Claude Code
 

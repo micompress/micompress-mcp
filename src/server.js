@@ -65,6 +65,14 @@ server.registerTool(
       max_width: z.number().int().positive().optional()
         .describe('Images only: resize down to this width in pixels.'),
     },
+    // Writes a file (and overwrites it when output_path is the input path).
+    annotations: {
+      title: 'Compress a file',
+      readOnlyHint: false,
+      destructiveHint: true,
+      idempotentHint: false,
+      openWorldHint: true,
+    },
   },
   async ({ path: inputPath, output_path: outputPath, preset, max_width: maxWidth }) => {
     if (!fs.existsSync(inputPath)) return toolError(`File not found: ${inputPath}`);
@@ -133,6 +141,7 @@ server.registerTool(
     title: 'List supported formats',
     description: 'List the file extensions that compress_file accepts, grouped by category.',
     inputSchema: {},
+    annotations: { title: 'List supported formats', readOnlyHint: true, openWorldHint: false },
   },
   async () => {
     const byCategory = {};

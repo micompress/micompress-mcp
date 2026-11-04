@@ -6,7 +6,7 @@
     "url": "https://github.com/micompress/micompress-mcp",
     "source": "github"
   },
-  "version": "0.1.2",
+  "version": "0.1.3",
   "packages": [
     {
       "registryType": "oci",
@@ -42,5 +42,19 @@
     }
   ],
   "title": "MiCompress",
-  "websiteUrl": "https://micompress.com"
+  "websiteUrl": "https://micompress.com",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://micompress.com/mcp",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "description": "Optional personal API key from https://micompress.com/account (bigger files, monthly allowance).",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
 }

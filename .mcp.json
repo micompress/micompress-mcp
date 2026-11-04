@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "micompress": {
+      "type": "http",
+      "url": "https://micompress.com/mcp"
+    }
+  }
+}
